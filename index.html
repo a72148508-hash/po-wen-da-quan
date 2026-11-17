@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PO 文大全（整理版）</title>
+<style>
+  :root {
+    --bg: #faf7f2;
+    --card: #ffffff;
+    --ink: #3a3530;
+    --sub: #8a8178;
+    --line: #e8e2d8;
+    --accent: #b0623a;
+    --accent-soft: #f5e7dd;
+    --title: #2f2a25;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+  body {
+    font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+  .layout { display: flex; max-width: 1180px; margin: 0 auto; gap: 28px; padding: 24px 20px 80px; }
+  /* 目录侧栏 */
+  nav.toc {
+    width: 250px; flex-shrink: 0; position: sticky; top: 24px; align-self: flex-start;
+    max-height: calc(100vh - 48px); overflow-y: auto;
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+    padding: 20px 16px; box-shadow: 0 2px 14px rgba(60,40,20,.06);
+  }
+  nav.toc h2 {
+    font-size: 13px; letter-spacing: 2px; color: var(--sub);
+    border-bottom: 1px dashed var(--line); padding-bottom: 10px; margin-bottom: 10px;
+  }
+  nav.toc ol { list-style: none; }
+  nav.toc > ol > li { margin: 6px 0; }
+  nav.toc a {
+    display: block; text-decoration: none; color: var(--ink);
+    padding: 6px 10px; border-radius: 8px; font-size: 14px; transition: background .15s;
+  }
+  nav.toc a:hover { background: var(--accent-soft); color: var(--accent); }
+  nav.toc a.top-link { font-weight: 700; }
+  nav.toc ul { list-style: none; margin: 2px 0 2px 14px; padding-left: 8px; border-left: 1px solid var(--line); }
+  nav.toc ul a { font-size: 13px; color: var(--sub); padding: 4px 10px; }
+  nav.toc ul a:hover { color: var(--accent); }
+  /* 主内容 */
+  main { flex: 1; min-width: 0; }
+  header.hero {
+    background: linear-gradient(135deg, #f3e2d3 0%, #faf3ea 60%, #f2f5f0 100%);
+    border: 1px solid var(--line); border-radius: 16px; padding: 32px 28px; margin-bottom: 24px;
+  }
+  header.hero h1 { font-size: 28px; color: var(--title); letter-spacing: 1px; }
+  header.hero .meta { color: var(--sub); font-size: 13px; margin-top: 10px; }
+  .note {
+    background: #fffdf7; border: 1px solid #ece3cf; border-left: 4px solid #d9b877;
+    border-radius: 10px; padding: 14px 18px; margin-bottom: 24px; font-size: 13.5px; color: #6f6352;
+  }
+  .note p + p { margin-top: 6px; }
+  section.chapter {
+    background: var(--card); border: 1px solid var(--line); border-radius: 16px;
+    padding: 26px 26px 20px; margin-bottom: 22px; box-shadow: 0 2px 12px rgba(60,40,20,.05);
+  }
+  section.chapter > h2 {
+    font-size: 21px; color: var(--title); display: flex; align-items: center; gap: 10px;
+    padding-bottom: 12px; margin-bottom: 6px; border-bottom: 2px solid var(--accent-soft);
+  }
+  section.chapter > h2 .num {
+    background: var(--accent); color: #fff; font-size: 14px; width: 30px; height: 30px;
+    border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .block { margin: 16px 0 8px; }
+  .block > h3 {
+    font-size: 16px; color: var(--accent); margin-bottom: 8px; padding-left: 10px;
+    border-left: 3px solid var(--accent);
+  }
+  .block > h3 .tag { font-size: 12px; color: var(--sub); font-weight: 400; margin-left: 8px; }
+  ul.books { list-style: none; }
+  ul.books > li { padding: 7px 4px; border-bottom: 1px dashed var(--line); }
+  ul.books > li:last-child { border-bottom: none; }
+  .book { font-weight: 600; color: var(--title); }
+  .author { color: var(--sub); font-size: 13px; }
+  .author::before { content: "作者："; }
+  .intro { color: #7d7468; font-size: 13.5px; display: block; margin-top: 2px; }
+  .plain { color: var(--ink); }
+  .plain .author { color: #a58f76; }
+  .sep { color: #d5cbbc; margin: 0 6px; }
+  footer { text-align: center; color: var(--sub); font-size: 12.5px; margin-top: 30px; }
+  /* 移动端：目录收起到顶部 */
+  @media (max-width: 860px) {
+    .layout { flex-direction: column; padding: 16px 12px 60px; }
+    nav.toc { position: static; width: 100%; max-height: none; }
+    nav.toc ul { margin-left: 8px; }
+    header.hero h1 { font-size: 22px; }
+    section.chapter { padding: 20px 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+  <nav class="toc" aria-label="目录">
+    <h2>目 录</h2>
+    <ol>
+      <li><a class="top-link" href="#ch1">一、NP / 一女多男 / 强制爱</a>
+        <ul>
+          <li><a href="#ch1-1">强取豪夺 NP 系列</a></li>
+          <li><a href="#ch1-2">N 了个 P（三刷推荐）</a></li>
+          <li><a href="#ch1-3">强制 NP</a></li>
+          <li><a href="#ch1-4">一女多男 PO</a></li>
+          <li><a href="#ch1-5">NP 系列（@彩虹推书机）</a></li>
+          <li><a href="#ch1-6">N.O 合集（三刷）</a></li>
+        </ul>
+      </li>
+      <li><a class="top-link" href="#ch2">二、BG / 1v1 / 言情</a>
+        <ul>
+          <li><a href="#ch2-1">深夜拉灯文学</a></li>
+          <li><a href="#ch2-2">看一辈子 BG</a></li>
+          <li><a href="#ch2-3">训诫 PO（bg 王中王）</a></li>
+          <li><a href="#ch2-4">强取豪夺合集（1v1）</a></li>
+          <li><a href="#ch2-5">CP 向</a></li>
+          <li><a href="#ch2-6">总裁文合集</a></li>
+          <li><a href="#ch2-7">书名 + 作者 + 简介</a></li>
+        </ul>
+      </li>
+      <li><a class="top-link" href="#ch3">三、末世 / 废土 / 科幻 / 哨向</a>
+        <ul>
+          <li><a href="#ch3-1">末世文合集</a></li>
+          <li><a href="#ch3-2">哨向 / 向导合集</a></li>
+          <li><a href="#ch3-3">单本推文</a></li>
+        </ul>
+      </li>
+      <li><a class="top-link" href="#ch4">四、快穿 / 系统 / 穿书</a>
+        <ul>
+          <li><a href="#ch4-1">快穿 1v 多</a></li>
+        </ul>
+      </li>
+      <li><a class="top-link" href="#ch5">五、书名速览 / 短篇杂项</a>
+        <ul>
+          <li><a href="#ch5-1">书名速览</a></li>
+          <li><a href="#ch5-2">连载 / 短篇速览</a></li>
+          <li><a href="#ch5-3">书名 + 作者速览</a></li>
+          <li><a href="#ch5-4">女主是木头的文</a></li>
+          <li><a href="#ch5-5">编号推荐</a></li>
+          <li><a href="#ch5-6">书架截图</a></li>
+          <li><a href="#ch5-7">新增补充</a></li>
+        </ul>
+      </li>
+    </ol>
+  </nav>
+
+  <main>
+    <header class="hero">
+      <h1>📚 PO 文大全（整理版）</h1>
+      <p class="meta">共 28 张截图整理 · 去重合并 · 24 个分类精简为 5 大类</p>
+    </header>
+
+    <div class="note">
+      <p>📌 来源：手机相册「po 文大全」共 28 张截图，其中 2 张内容完全相同，已去重保留 1 张。</p>
+      <p>⚠️ 说明：文字由 OCR 识别，个别生僻字 / 被遮挡字可能有误差，请以原图为准。</p>
+      <p>✂️ 本次已把原 24 个分类合并精简为 5 类。</p>
+    </div>
+
+    <!-- 一 -->
+    <section class="chapter" id="ch1">
+      <h2><span class="num">一</span>NP / 一女多男 / 强制爱</h2>
+
+      <div class="block" id="ch1-1">
+        <h3>强取豪夺 NP 系列</h3>
+        <ul class="books">
+          <li><span class="book">《绯蛾》</span><span class="author">随便果是真的吗</span> —— <span class="intro">贫穷坚韧女学霸 vs 恶劣男主们，1v4，多周目轮回重生</span></li>
+          <li><span class="book">《囚笼》</span><span class="author">豆浆</span> —— <span class="intro">万人迷女主 vs 全员疯批，1v4，哨向朋克，末世废土，赛博朋克</span></li>
+          <li><span class="book">《花开荼蘼》</span><span class="author">银月当空</span> —— <span class="intro">小可怜美人，一女多男，强取豪夺，乡村爱情</span></li>
+          <li><span class="book">《穿越即掉马》</span><span class="author">情诫</span> —— <span class="intro">穿越清醒女配 vs 清冷高贵将军之子 / 黑莲花世子 / 腹黑心机异族皇子，1v3，系统穿书，沙雕向古言</span></li>
+          <li><span class="book">《黑夜不再来》</span><span class="author">Shirleyyyy</span> —— <span class="intro">强取豪夺，男二上位，狗血俗套梗</span></li>
+          <li><span class="book">《替兄做女夫子后》</span><span class="author">caoshivv</span> —— <span class="intro">柔弱貌美女主，女扮男装，一女多男，强制爱，古风书院文</span></li>
+        </ul>
+      </div>
+
+      <div class="block" id="ch1-2">
+        <h3>N 了个 P<span class="tag">三刷推荐</span></h3>
+        <ul class="books plain">
+          <li><span class="book">《他们全都说爱我》</span> —— 爽看爽吃纯爱</li>
+          <li><span class="book">《穿成乙游万人迷》</span> —— 大女主万人迷爽文</li>
+          <li><span class="book">《我住进了男神宿舍》</span> —— 女主完全不吃压力</li>
+          <li><span class="book">《万人迷她又娇又软》</span> —— 钓系恶女</li>
+        </ul>
+      </div>
+
+      <div class="block" id="ch1-3">
+        <h3>强制 NP</h3>
+        <ul class="books plain">
+          <li><span class="book">《父皇》</span><span class="author">匿名闲鱼</span></li>
+          <li><span class="book">《炮灰又被疯批强制了》</span><span class="author">软棠不吃软糖</span></li>
+          <li><span class="book">《当书中最惨的反派重生之后》</span></li>
+          <li><span class="book">《青龙血》</span><span class="author">云水吟</span></li>
+          <li><span class="book">《环伺》</span><span class="author">派派茄子</span></li>
+          <li><span class="book">《掌中直男》</span><span class="author">春江潮水</span></li>
+          <li><span class="book">《存档点》</span><span class="author">失忆症</span></li>
+          <li><span class="book">《红昭》</span><span class="author">陌百生</span></li>
+          <li><span class="book">《烂柯遗梦》</span><span class="author">灼妆</span></li>
+          <li><span class="book">《困兽》</span><span class="author">天上宫阙</span></li>
+          <li><span class="book">《太阳是奶酪做的》</span><span class="author">枪枪走火</span></li>
+          <li><span class="book">《大师兄哪里逃》</span><span class="author">热心市民张大姐</span></li>
+          <li><span class="book">《仙尊每天都在艰难求生》</span><span class="author">熊猫困困</span></li>
+        </ul>
+      </div>
+
+      <div class="block" id="ch1-4">
+        <h3>一女多男 PO</h3>
+        <ul class="books">
+          <li><span class="book">《蜜汁樱桃》</span><span class="author">苦咖啡</span> —— <span class="intro">温婉美人 vs 温柔学长、阳光学弟、霸道精英、白月光男神；同居生爱，美食日常风，大学校园文</span></li>
+          <li><span class="book">《寄人篱下》</span><span class="author">雾隐花泪</span> —— <span class="intro">表姑娘 vs 各路表哥；古言，青梅竹马，表哥们互相吃醋</span></li>
+          <li><span class="book">《上流社会》</span><span class="author">九铃</span> —— <span class="intro">搞事业女主 vs 九个男主；高干，复仇，男强女强，美丽女人踩着精英男人坐上王座</span></li>
+          <li><span class="book">《碎玉成欢》</span><span class="author">一根猫条</span> —— <span class="intro">疯批恶女侯府千金 vs 复仇路上的各色男人；偏暗黑向，女主又美又疯，权谋线逻辑严密</span></li>
+          <li><span class="book">《重返十六岁》</span><span class="author">酪酊</span> —— <span class="intro">气质型大美人 vs 校草男闺蜜、温柔学霸、前男友；重生校园文，走心走肾走剧情</span></li>
+        </ul>
+      </div>
+
+      <div class="block" id="ch1-5">
+        <h3>NP 系列<span class="tag">@彩虹推书机</span></h3>
+        <ul class="books">
+          <li><span class="book">《万能钥匙》</span><span class="author">简尔</span> —— <span class="intro">现言，一女多男，剧情流</span></li>
+          <li><span class="book">《离开冷宫之后》</span><span class="author">伏阿育</span> —— <span class="intro">小宫女 vs 皇帝、皇帝他弟、异国皇子、侍卫、太监、大臣；宫廷背景，攻略向</span></li>
+          <li><span class="book">《我身边的男人都很奇怪》</span><span class="author">淡画书墨</span> —— <span class="intro">甜美貌美女主 vs 霸道土豪、斯文败类教授、严厉冷酷总裁；重生，一女多男，渣男追妻失败，校园甜宠</span></li>
+          <li><span class="book">《疯狗男友和同居的他》</span><span class="author">PISTOOL</span> —— <span class="intro">淡定美艳御姐 vs 疯批男友、落魄心机贵公子；1v2，修罗场，本质甜文</span></li>
+          <li><span class="book">《倒影浮光》</span><span class="author">简尔的海</span> —— <span class="intro">双重人格女主 vs 逃犯外卖小哥、执刑者总裁；1v2，剧情流，镜像，边缘正义</span></li>
+        </ul>
+      </div>
+
+      <div class="block" id="ch1-6">
+        <h3>N.O 合集<span class="tag">三刷</span></h3>
+        <ul class="books plain">
+          <li><span class="book">《大小姐的读档日常》</span> —— 近期 top1，女主一言不合就读档，留男主们独自后悔</li>
+          <li><span class="book">《花花公主迷人眼》</span> —— 古言</li>
+          <li><span class="book">《钓系女配太多宠》</span> —— 雄竞天堂，顶级训诫文学</li>
+          <li><span class="book">《女配在体院》</span> —— 旧文，未完结</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 二 -->
+    <section class="chapter" id="ch2">
+      <h2><span class="num">二</span>BG / 1v1 / 言情<span style="font-size:13px;color:var(--sub);font-weight:400;margin-left:6px;">总裁 · 训诫 · CP · 糙汉高干</span></h2>
+
+      <div class="block" id="ch2-1">
+        <h3>深夜拉灯文学</h3>
+        <ul class="books plain">
+          <li><span class="book">《打脸女配高攀上男主后》</span> —— 1v1</li>
+          <li><span class="book">《沦为男主玩物的绿茶女配》</span> —— if 线</li>
+          <li><span class="book">《嫡兄》</span> —— 1v1，骨科</li>
+          <li><span class="book">《重生之祝英台遇上马文才》</span> —— 1v1，强制爱</li>
+          <li><span class="book">《濒危人类饲养日记》</span> —— NP，人外</li>
+          <li><span class="book">《AV拍摄指南》</span> —— NP</li>
+          <li><span class="book">《穿成男主的白月光》</span><span class="author">花柒酒</span> —— NP，afd 可看</li>
+          <li><span class="book">《失语国度》</span> —— NP，人外</li>
+          <li><span class="book">《被渣过的前男友囚禁了》</span> —— 1v1，疯批男主</li>
+          <li><span class="book">《蝴蝶效应》</span> —— 1v1，脑洞</li>
+        </ul>
+      </div>
+
+      <div class="block" id="ch2-2">
+        <h3>看一辈子 BG<span class="tag">糙汉 / 高干 / 训诫 / 酸涩 / 1v2</span></h3>
+        <ul class="books plain">
+          <li><span class="book">《雪野失控》</span> —— 糙汉文，撩到糙汉破功军人</li>
+          <li><span class="book">《糙野缠妻》</span> —— 做饭香</li>
+          <li><span class="book">《软香》《房客》</span></li>
+          <li><span class="book">《蝶欲诱恋》</span> —— 港圈 HE</li>
+          <li><span class="book">《雾锁寒枝》</span> —— 天花板 HE</li>
+          <li><span class="book">《京枝难攀》</span></li>
+          <li><span class="book">《第二十五时区的情书》</span></li>
+          <li><span class="book">《难逃温执》</span> —— 训诫文 top</li>
+          <li><span class="book">《臣服》《他哄成瘾》《他的监督下》</span></li>
+          <li><span class="book">《巴掌印》《膝盖之上》</span></li>
+          <li><span class="book">《晚夏心溯》</span> —— 双向救赎</li>
+          <li><span class="book">《意落潮声》《小船三年又三年》</span></li>
+          <li><span class="book">《软枝难逃》</span> —— 渴肤症</li>
+          <li><span class="book">《雾眠难逃》</span> —— 近期 top1</li>
+          <li><span class="book">《桌边》</span></li>
+          <li><span class="book">《哥哥别抢妻》</span> —— 兄弟盖饭，1v2</li>
+          <li><span class="book">《软栀逃不掉》《春莺》</span></li>
+          <li><span class="book">《她惹双疯沉沦》</span> —— 满汉全席</li>
+          <li><span class="book">《爱她到失控》《失乐园》</span></li>
+        </ul>
+      </div>
+
+      <div class="block" id="ch2-3">
+        <h3>训诫 PO<span class="tag">bg 王中王</span></h3>
+        <ul class="books plain">
+          <li><span class="book">《不乖规矩》</span> —— 禁欲清冷老板 vs 圆润讨喜秘书</li>
+          <li><span class="book">《戒尺恋人》</span> —— 心狠资本家 vs 病弱小公主</li>
+          <li><span class="book">《墨墨权心》</span> —— 偏执帝国九爷 vs 狂拽秒怂黑客</li>
+          <li><span class="book">《顶级跨戒》</span> —— 残暴狼性大佬 vs 坚韧落难小白花</li>
+          <li><span class="book">《红颜斗气》</span> —— 隐忍掌权大佬 vs 娇软爱哭小乖宝</li>
+          <li><span class="book">《闻温为戒》</span> —— 温柔疯批少爷 vs 重生逃离少女</li>
+          <li><span class="book">《月牙携手》</span> —— 禁欲腹黑教授 vs 叛逆沙雕少女</li>
+        </ul>
+      </div>
+
+      <div class="block" id="ch2-4">
+        <h3>强取豪夺合集<span class="tag">1v1</span></h3>
+        <ul class="books">
+          <li><span class="book">《雀》</span><span class="author">涨汝</span> —— <span class="intro">控制欲超强疯批总裁 × 敏感缺爱又坚韧的小保姆；破镜重圆，包养 / 追妻火葬场 / 强取豪夺</span></li>
+          <li><span class="book">《想入霏霏》</span><span class="author">一口蛋挞</span> —— <span class="intro">腹黑多金总裁 vs 冷艳高傲瑜伽老师；追妻火葬场 / 强取豪夺</span></li>
+          <li><span class="book">《一手抚大》</span><span class="author">决暖</span> —— <span class="intro">斯文败类高冷男主 vs 落魄貌美小白兔；高干文 / 强取豪夺</span></li>
+          <li><span class="book">《蜜汁肉桃》</span><span class="author">棠梨煎雪</span> —— <span class="intro">娇软美食博主舞蹈生 × 成熟帅气多金霸总；强取豪夺 / 甜宠 / 娱乐圈 / 金主文学</span></li>
+          <li><span class="book">《辛夷》</span><span class="author">白头翁</span> —— <span class="intro">清醒自卑女主 vs 偏执痴情男主；强取豪夺 / 破镜重圆 / 追妻火葬场</span></li>
+          <li><span class="book">《温柔禁》</span><span class="author">丁仪的宏原子</span> —— <span class="intro">柔弱小白花 × 恶劣狗男人；强制爱 / 追妻火葬场</span></li>
+        </ul>
+      </div>
+
+      <div class="block" id="ch2-5">
+        <h3>CP 向<span class="tag">书名 + 作者 + 角色</span></h3>
+        <ul class="books plain">
+          <li><span class="book">《赌》</span><span class="author">木口银</span> —— 林喜朝×柯煜；温软乖乖女×天之骄子忠犬</li>
+          <li><span class="book">《恶役千金屡败屡战》</span><span class="author">刻舟</span> —— 尤莉卡×N；笨蛋可爱恶女×各种类型男主</li>
+          <li><span class="book">《劫》</span><span class="author">魏承泽</span> —— 苏凡×（三男主）；坐过牢人生灰暗女主×三个男主</li>
+          <li><span class="book">《6334》</span><span class="author">小声点</span> —— 韦叶×江湄；温柔清醒女主×疯批病娇男主</li>
+          <li><span class="book">《碧荷》</span><span class="author">阿里里呀</span> —— 梁碧荷×林致远；清醒温柔女主×偏执疯批男主</li>
+          <li><span class="book">《囚鹤》</span><span class="author">听灯</span> —— 孟臾×谢鹤逸；固执清醒女大学生×疯批偏执世家儒商</li>
+          <li><span class="book">《与狐说》</span><span class="author">萝卜药丸了</span> —— 楚×子微；人界娇软美人×清高冷漠道长</li>
+          <li><span class="book">《夺妻》</span><span class="author">豌豆荚</span> —— 余笙×季宴礼；已婚女明星×商业大佬</li>
+          <li><span class="book">《烂草莓》</span><span class="author">梨梨亚冬</span> —— 徐烟×陆应淮；乖巧小白脸学霸×恶劣霸道公子哥</li>
+        </ul>
+      </div>
+
+      <div class="block" id="ch2-6">
+        <h3>总裁文合集</h3>
+        <ul class="books plain">
+          <li><span class="book">《离婚》</span><span class="author">子境</span> —— 温柔内敛女老师 × 冷静理性男总裁</li>
+          <li><span class="book">《总裁别过来》</span><span class="author">红烧肉</span> —— 冷峻总裁 vs 软糯助理</li>
+          <li><span class="book">《总裁他脑子有病》</span><span class="author">偷马头</span> —— 美艳蠢萌秘书 vs 高冷腹黑总裁</li>
+          <li><span class="book">《强取隐婚》</span><span class="author">小南瓜</span> —— 女明星宋娇 × 男总裁邢间</li>
+          <li><span class="book">《逢迎》</span><span class="author">瞰雾</span> —— 娇憨清醒女明星 × 高冷傲娇大佬</li>
+          <li><span class="book">《他的白月光》</span><span class="author">dearfairy</span> —— 深情内敛霸总 × 坚韧善良小厨娘</li>
+          <li><span class="book">《秘闻》</span><span class="author">向雾</span> —— 沉稳内敛老男人 × 年轻娇美嫩美人</li>
+          <li><span class="book">《惩爱》</span><span class="author">锦换</span> —— 军政大佬 × 玻璃美人</li>
+          <li><span class="book">《清釉》</span><span class="author">锦换洁</span> —— 偏执狼性大股东 × 随和温柔小法务</li>
+        </ul>
+      </div>
+
+      <div class="block" id="ch2-7">
+        <h3>书名 + 作者 + 简介</h3>
+        <ul class="books">
+          <li><span class="book">《茉莉雨》</span><span class="author">小梨摇尾巴</span> —— <span class="intro">外软内小白兔 × 温柔腹黑大灰狼；校园｜伪转正｜久别重逢</span></li>
+          <li><span class="book">《那个特招生》</span><span class="author">时小青</span> —— <span class="intro">贫困生女主 × 天之骄子男主们；校园｜贵族背景｜强制｜暗黑系</span></li>
+          <li><span class="book">《离婚前变成了一只猫》</span><span class="author">谁又偷猫肉</span> —— <span class="intro">冷静克制男主 × 活泼骄纵女主；现代奇幻｜先婚后爱｜高岭之花下神坛</span></li>
+          <li><span class="book">《山外青山》</span><span class="author">是西瓜啊</span> —— <span class="intro">清醒大胆女主 × 不懂情爱觉醒霸总；先婚后爱｜暗恋逆袭｜一见钟情｜追妻</span></li>
+          <li><span class="book">《怦怦》</span><span class="author">一座银山</span> —— <span class="intro">持靓行凶大小姐 × 心机腹黑穷小子；校园到都市｜一见钟情｜破镜重圆</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 三 -->
+    <section class="chapter" id="ch3">
+      <h2><span class="num">三</span>末世 / 废土 / 科幻 / 哨向</h2>
+
+      <div class="block" id="ch3-1">
+        <h3>末世文合集</h3>
+        <ul class="books plain">
+          <li><span class="book">《抱紧大腿》</span><span class="author">消灭糖果</span></li>
+          <li><span class="book">《末世X文行》</span><span class="author">小妖不眠</span></li>
+          <li><span class="book">《正经人谁写日记》</span><span class="author">早行</span></li>
+          <li><span class="book">《末世之娇弱炉鼎》</span><span class="author">三條壹</span></li>
+          <li><span class="book">《末世·青青》</span><span class="author">皋月</span></li>
+          <li><span class="book">《女主是软妹啊》</span><span class="author">三海食梦</span></li>
+          <li><span class="book">《地球末日》</span><span class="author">雪莉</span></li>
+          <li><span class="book">《【末日】炮灰变boss》</span><span class="author">解棠</span></li>
+          <li><span class="book">《末日伊甸园》</span><span class="author">喵子</span></li>
+          <li><span class="book">《闭环》</span><span class="author">虎斑猫</span></li>
+          <li><span class="book">《末日之恶毒女配》</span><span class="author">黄色废料</span></li>
+          <li><span class="book">《强制受孕》</span><span class="author">吃肉长耳兔</span></li>
+        </ul>
+        <p style="font-size:13px;color:var(--accent);margin:8px 4px 4px;font-weight:600;">【NP 类】</p>
+        <ul class="books plain">
+          <li><span class="book">《末日生存法则》</span><span class="author">一坨薯饼</span></li>
+          <li><span class="book">《巴别塔下》</span><span class="author">Ki</span></li>
+          <li><span class="book">《末世：柠缺毋滥》</span><span class="author">青天白日梦</span></li>
+          <li><span class="book">《丧尸世界生存指南》</span><span class="author">totoro</span></li>
+          <li><span class="book">《女配的守护者》</span><span class="author">咖啡的鱼</span></li>
+          <li><span class="book">《绝非善类》</span><span class="author">霍比特人</span></li>
+        </ul>
+      </div>
+
+      <div class="block" id="ch3-2">
+        <h3>哨向 / 向导合集</h3>
+        <ul class="books">
+          <li><span class="book">《被迫阴暗的向导她翻车了》</span><span class="author">黎黎</span> —— <span class="intro">扮猪吃老虎女主 vs 男主们；万人迷｜修罗场｜1v3</span></li>
+          <li><span class="book">《冰冻春天》</span><span class="author">有云</span> —— <span class="intro">迟钝善良向导 vs 腹黑深情哨兵；死遁梗｜先婚后爱｜追妻｜1v1</span></li>
+          <li><span class="book">《向导她无处可逃》</span><span class="author">0306</span> —— <span class="intro">柔弱女向导 vs 各路强大哨兵；胎穿｜甜虐交织｜1v6</span></li>
+          <li><span class="book">《猫贴贴指南》</span><span class="author">蜗牛</span> —— <span class="intro">温柔向导女主 vs SSS 级哨兵男主；甜宠｜反差萌｜1v1</span></li>
+          <li><span class="book">《如你所见，我是个女大学生》</span><span class="author">硫酸盐</span> —— <span class="intro">万人迷小太阳女主 vs 各种动物塑男主；废土赛博｜人外｜强制爱｜1vN</span></li>
+          <li><span class="book">《指挥官她被迫献身》</span><span class="author">云在西</span> —— <span class="intro">潇洒没心没肺女主 vs 各类型男主；星际｜万人迷｜男全C｜1v8</span></li>
+          <li><span class="book">《D级向导也要被强制爱吗》</span><span class="author">草</span> —— <span class="intro">单纯迟钝妹宝 vs 男主们；甜宠｜人外｜男强女弱｜1v5</span></li>
+          <li><span class="book">《蛇头香》</span><span class="author">发疯的阿亘</span> —— <span class="intro">酷飒女主 vs 温柔痴汉男妈妈；暧昧拉扯｜未来废土｜1v1</span></li>
+        </ul>
+      </div>
+
+      <div class="block" id="ch3-3">
+        <h3>单本推文</h3>
+        <ul class="books">
+          <li><span class="book">《末日销魂窟》</span><span class="intro">（末世·异能·NP，已完结）—— 清醒爽文女主 vs 众多末世异能大佬；女主异能可变形（人鱼、蛇女、精灵女王、天使等），一路从末世底层爬到顶端，只动身不动心，很会判断形势；最喜欢的男主是丧尸王叶宸。</span></li>
+          <li><span class="book">《合欢功法害人不浅》</span><span class="author">云在西</span><span class="intro">（仙侠古言·NP，已完结）—— 各种性格男主 vs 娇娇懒懒修炼奇才大小姐；男女全处，有小黑屋和半强制爱，女主假死、男主追妻火葬场的古早情节。</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 四 -->
+    <section class="chapter" id="ch4">
+      <h2><span class="num">四</span>快穿 / 系统 / 穿书</h2>
+
+      <div class="block" id="ch4-1">
+        <h3>快穿 1v 多</h3>
+        <ul class="books plain">
+          <li><span class="book">《YY香水系统》</span><span class="author">不瞌睡</span></li>
+          <li><span class="book">《女配她只想被渣》</span><span class="author">黄心火龙果</span></li>
+          <li><span class="book">《快穿之媚骨天成》</span><span class="author">弄月</span></li>
+          <li><span class="book">《穿书之欲欲仙途》</span><span class="author">幕慕心</span> —— 修仙，NP，强推</li>
+          <li><span class="book">《女配她只想上床》</span><span class="author">黄心火龙果</span></li>
+          <li><span class="book">《虐文女主求生指南》</span><span class="author">玛丽小贝</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 五 -->
+    <section class="chapter" id="ch5">
+      <h2><span class="num">五</span>书名速览 / 短篇杂项</h2>
+
+      <div class="block" id="ch5-1">
+        <h3>书名速览<span class="tag">无作者，带标签</span></h3>
+        <ul class="books plain">
+          <li><span class="book">《引狼入室》</span> —— 1v2，修罗场特别多，强推</li>
+          <li><span class="book">《电竞高岭之花的后花园》</span> —— NP</li>
+          <li><span class="book">《同居电竞》</span> —— PO，1v1</li>
+          <li><span class="book">《前任遍仙界》</span> —— 过程 NP</li>
+          <li><span class="book">《恶女自有恶人收》</span> —— 1v1，PO，强推</li>
+          <li><span class="book">《在男校女扮男装》</span> —— NPH</li>
+          <li><span class="book">《穿成灰姑娘的恶毒继姐》</span> —— 西幻，1v1</li>
+        </ul>
+      </div>
+
+      <div class="block" id="ch5-2">
+        <h3>连载 / 短篇速览</h3>
+        <ul class="books plain">
+          <li><span class="book">《生路》</span> —— 连载，PO，黑道，NP</li>
+          <li><span class="book">《渡阳气》</span> —— 1v1，倩女幽魂同人</li>
+          <li><span class="book">《余灰》</span> —— 伪骨科，1v1</li>
+          <li><span class="book">《我有特殊的解压方式》</span> —— 1v1，饮食男女</li>
+          <li><span class="book">《今天你 crush 了吗》</span> —— 短篇甜文</li>
+          <li><span class="book">《限定室友》</span> —— NP</li>
+          <li><span class="book">《诱因》</span> —— 1v1，PO，校园</li>
+          <li><span class="book">《逃出情欲学院》</span> —— 1v1</li>
+        </ul>
+      </div>
+
+      <div class="block" id="ch5-3">
+        <h3>书名 + 作者速览</h3>
+        <ul class="books plain">
+          <li><span class="book">《七煞（魔修）》</span><span class="author">南玥惜</span></li>
+          <li><span class="book">《不甘不愿（高干）》</span><span class="author">坑不死你</span></li>
+          <li><span class="book">《优质肉棒攻略系统》</span><span class="author">菜小花</span></li>
+          <li><span class="book">《（首字模糊）巧集》</span><span class="author">由声</span></li>
+          <li><span class="book">《献囚》</span><span class="author">尘昭昭</span></li>
+          <li><span class="book">《快穿之女配要吃》</span><span class="author">大王叫我来巡山啊</span></li>
+          <li><span class="book">《分水岭》</span><span class="author">达意</span></li>
+          <li><span class="book">《【快穿】她，狐作非为》</span><span class="author">淡</span></li>
+          <li><span class="book">《大明春事之玉娘》</span><span class="author">沐浴的西斯李</span></li>
+          <li><span class="book">《【快穿】满级海王在线攻心》</span><span class="author">清衫</span></li>
+          <li><span class="book">《欲求不满》</span><span class="author">鲤鱼飘</span></li>
+          <li><span class="book">《渣女》</span><span class="author">阿里里呀</span></li>
+          <li><span class="book">《[ABO] 畸形 beta》</span><span class="author">MOMO</span></li>
+        </ul>
+      </div>
+
+      <div class="block" id="ch5-4">
+        <h3>女主是木头的文</h3>
+        <ul class="books plain">
+          <li><span class="book">《赵氏嫡女》《乖乖等》</span></li>
+          <li><span class="book">《指尖勾狂欲》《老婆回来》</span></li>
+          <li><span class="book">《老是逃跑》《贪玩破了》</span></li>
+          <li><span class="book">《可不行》《家规》</span></li>
+        </ul>
+      </div>
+
+      <div class="block" id="ch5-5">
+        <h3>编号推荐<span class="tag">书名 + 作者</span></h3>
+        <ul class="books plain">
+          <li><span class="book">《（书名缺失）》</span><span class="author">萌萌哒鸟</span></li>
+          <li><span class="book">《归来》</span><span class="author">勤劳的小野猫</span></li>
+          <li><span class="book">《在路上》</span><span class="author">火龙果</span></li>
+          <li><span class="book">《热陷》</span><span class="author">卜鸣</span></li>
+          <li><span class="book">《（前缀模糊）替身》</span><span class="author">豌豆荚</span></li>
+          <li><span class="book">《潘多拉的复仇》</span><span class="author">一颗仔姜</span></li>
+          <li><span class="book">《豪门继女》</span><span class="author">贰九</span></li>
+          <li><span class="book">《上位法则》</span><span class="author">落笔清欢</span></li>
+          <li><span class="book">《上下左右》</span><span class="author">三侗岸</span></li>
+          <li><span class="book">《漫花之舞》</span><span class="author">银桃花</span></li>
+          <li><span class="book">《贪欢》</span><span class="author">银桃花</span></li>
+          <li><span class="book">《良性竞争》</span><span class="author">锦换</span></li>
+          <li><span class="book">《哑炮小姐》</span><span class="author">小花灯糕</span></li>
+        </ul>
+      </div>
+
+      <div class="block" id="ch5-6">
+        <h3>书架截图<span class="tag">可辨识条目</span></h3>
+        <ul class="books plain">
+          <li><span class="book">《最佳野王》</span><span class="author">一坨薯饼</span>（电竞 NPH）</li>
+          <li><span class="book">《竹马近邻》</span>（作者模糊）</li>
+          <li><span class="book">《穿进乙女游戏后被男主们…》</span><span class="author">明月皎皎</span></li>
+          <li><span class="book">《她是校草们的夹心饼干》</span><span class="author">黄心火龙果</span></li>
+          <li><span class="book">《普女但魅魔体质》</span><span class="author">高辣书屋</span></li>
+          <li><span class="book">《赌徒》</span><span class="author">盏懿</span></li>
+          <li><span class="book">《我的竹马不可能是绿茶》</span></li>
+          <li><span class="book">《温火》</span><span class="author">雪莉</span></li>
+          <li><span class="book">《小神仙》《泡泡》《搁浅》《心软予你》</span></li>
+          <li><span class="book">《前女友孩子三岁》《小圆不吃鱼》《长耳鸦》《玉寺人》</span></li>
+          <li><span class="book">《迷魂阵》《樱照良宵》《吹拂雨沙沙》《锦葵紫》</span></li>
+          <li><span class="book">《白日放歌》《从前的从前说起》</span></li>
+        </ul>
+      </div>
+
+      <div class="block" id="ch5-7">
+        <h3>新增补充<span class="tag">你追加的</span></h3>
+        <ul class="books plain">
+          <li><span class="book">《酣色之罪》《熟人作案》《淫乱小镇》《天生尤物》</span></li>
+          <li><span class="book">《色情生存游戏》《赠我予白》《甜秘密》《娇生惯养》</span></li>
+          <li><span class="book">《盲冬》《越海》《真心游戏》《脱缰》</span></li>
+          <li><span class="book">《秘书》《麝香之梦》《背主》《顶级暴徒》</span></li>
+          <li><span class="book">《应召男菩萨》《普女也有修罗场吗》《朋友》《絮娘》</span></li>
+          <li><span class="book">《洞仙歌》《失贞》《柏林之春》《狼窝》</span></li>
+          <li><span class="book">《流俗之地》《极光之旅》《天下谋妆》《剪羽》</span></li>
+          <li><span class="book">《临时起意》</span><span class="author">卷心菜</span></li>
+          <li><span class="book">《下雨天》《可以帮我补习吗》</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <footer>
+      PO 文大全 · 整理版 · 由截图 OCR 整理生成 · 内容仅供个人阅读参考
+    </footer>
+  </main>
+</div>
+</body>
+</html>
